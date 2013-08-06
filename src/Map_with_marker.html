@@ -1,0 +1,70 @@
+<html><head>
+		 <script src="http://www.openlayers.org/api/OpenLayers.js"></script><style type="text/css"></style>
+		 <style class="text/css">
+		 	#mapdiv {
+		 		width: 300px;
+		 		height: 300px;
+		 	}
+		 </style>
+	<link rel="stylesheet" type="text/css" href="http://www.openlayers.org/api/theme/default/style.css"></head>
+
+	<body>
+		<h1>YRS Eastbourne</h1>
+
+		<div>
+			<div>Lat: <span id="lat">50.7628725</span></div>
+			<div>Long: <span id="long">0.2826326</span></div>
+		</div>
+
+		<div id="mapdiv" class="olMap"><div id="OpenLayers_Map_2_OpenLayers_ViewPort" class="olMapViewport olControlDragPanActive olControlZoomBoxActive olControlPinchZoomActive olControlNavigationActive" style="position: relative; overflow: hidden; width: 100%; height: 100%;"><div id="OpenLayers_Map_2_OpenLayers_Container" style="position: absolute; z-index: 749; left: 0px; top: 0px;"><div id="OpenLayers_Layer_OSM_18" dir="ltr" class="olLayerDiv olLayerGrid" style="position: absolute; width: 100%; height: 100%; z-index: 100;"><img class="olTileImage" crossorigin="anonymous" src="http://a.tile.openstreetmap.org/16/32819/22008.png" style="visibility: inherit; opacity: 1; position: absolute; left: 34px; top: 48px; width: 256px; height: 256px;"><img class="olTileImage" crossorigin="anonymous" src="http://b.tile.openstreetmap.org/16/32819/22007.png" style="visibility: inherit; opacity: 1; position: absolute; left: 34px; top: -208px; width: 256px; height: 256px;"><img class="olTileImage" crossorigin="anonymous" src="http://a.tile.openstreetmap.org/16/32818/22008.png" style="visibility: inherit; opacity: 1; position: absolute; left: -222px; top: 48px; width: 256px; height: 256px;"><img class="olTileImage" crossorigin="anonymous" src="http://a.tile.openstreetmap.org/16/32820/22008.png" style="visibility: inherit; opacity: 1; position: absolute; left: 290px; top: 48px; width: 256px; height: 256px;"><img class="olTileImage" crossorigin="anonymous" src="http://a.tile.openstreetmap.org/16/32819/22009.png" style="visibility: inherit; opacity: 1; position: absolute; left: 34px; top: 304px; width: 256px; height: 256px;"><img class="olTileImage" crossorigin="anonymous" src="http://a.tile.openstreetmap.org/16/32818/22007.png" style="visibility: inherit; opacity: 1; position: absolute; left: -222px; top: -208px; width: 256px; height: 256px;"><img class="olTileImage" crossorigin="anonymous" src="http://c.tile.openstreetmap.org/16/32820/22007.png" style="visibility: inherit; opacity: 1; position: absolute; left: 290px; top: -208px; width: 256px; height: 256px;"><img class="olTileImage" crossorigin="anonymous" src="http://c.tile.openstreetmap.org/16/32818/22009.png" style="visibility: inherit; opacity: 1; position: absolute; left: -222px; top: 304px; width: 256px; height: 256px;"><img class="olTileImage" crossorigin="anonymous" src="http://a.tile.openstreetmap.org/16/32820/22009.png" style="visibility: inherit; opacity: 1; position: absolute; left: 290px; top: 304px; width: 256px; height: 256px;"></div><div id="OpenLayers_Layer_Markers_20" dir="ltr" class="olLayerDiv" style="position: absolute; width: 100%; height: 100%; z-index: 330;"><div id="OL_Icon_22" style="position: absolute; width: 21px; height: 25px; left: 139.5px; top: 125px;"><img id="OL_Icon_22_innerImage" class="olAlphaImg" src="http://www.openlayers.org/api/img/marker.png" style="position: relative; width: 21px; height: 25px;"></div></div></div><div id="OpenLayers_Control_Zoom_5" class="olControlZoom olControlNoSelect" unselectable="on" style="position: absolute; z-index: 1004;"><a href="#zoomIn" class="olControlZoomIn olButton">+</a><a href="#zoomOut" class="olControlZoomOut olButton">−</a></div><div id="OpenLayers_Control_ArgParser_6" class="olControlArgParser olControlNoSelect" unselectable="on" style="position: absolute; z-index: 1004;"></div><div id="OpenLayers_Control_Attribution_7" class="olControlAttribution olControlNoSelect" unselectable="on" style="position: absolute; z-index: 1004;">© <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors</div></div></div>
+
+		<div>Status: <span id="status">Gelocation available</span></div>
+
+
+		<script type="text/javascript">
+
+			function yrs_location() {
+				if ("geolocation" in navigator) {
+					document.getElementById("status").innerHTML = "Gelocation available";
+
+					document.getElementById("lat").innerHTML = "???";
+					document.getElementById("long").innerHTML = "???";
+
+					map = new OpenLayers.Map("mapdiv");
+					var layer = new OpenLayers.Layer.OSM();
+					map.addLayer(layer);
+					var zoom=16;
+				    var markers = new OpenLayers.Layer.Markers( "Markers" );
+				    var lonLat = new OpenLayers.LonLat(0,0);
+				    var marker = new OpenLayers.Marker(lonLat);
+				    map.addLayer(markers);
+				    markers.addMarker(marker);
+
+					var watchID = navigator.geolocation.watchPosition(function(position) {
+						console.log("Running");
+						document.getElementById("lat").innerHTML = position.coords.latitude;
+						document.getElementById("long").innerHTML = position.coords.longitude;
+
+					    lonLat = new OpenLayers.LonLat( position.coords.longitude , position.coords.latitude )
+					          .transform(
+					            new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
+					            map.getProjectionObject() // to Spherical Mercator Projection
+					          );
+
+					    map.setCenter (lonLat, zoom);
+
+						var newPx = map.getLayerPxFromLonLat(lonLat);
+						marker.moveTo(newPx);
+
+					});
+
+				} else {
+					document.getElementById("status").innerHTML = "Gelocation NOT available";
+				}
+			}
+			window.onload = yrs_location();
+
+		</script>
+
+	
+</body></html>
