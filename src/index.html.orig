@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<title>Coin Chaser</title>
+		<link rel="shortcut icon" href="images/Coin.ico"/>
+<<<<<<< HEAD
+	<link rel="shortcut icon" href="images/Coin.ico" /	>
+		<link rel="stylesheet" type="text/css" href="index.css">
+	</head>
+
+	</head>
+=======
+		<link rel="stylesheet" type="text/css" href="index.css">
+	</head>
+>>>>>>> james/master
+	<body>
+	</body>
+</html>
