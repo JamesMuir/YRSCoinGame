@@ -5,4 +5,12 @@ body{
 	height: 50px;
 	background-color: #FF8600;
 	margin-bottom: 10px;
+	position: relative; 
+}
+h2 {
+	font-family: Verdana;
+	font-weight: bold;
+	text-align: center;
+	padding-top: 25px;
+	padding-bottom: 25px;
 }
