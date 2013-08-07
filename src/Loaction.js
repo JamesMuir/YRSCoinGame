@@ -1,5 +1,8 @@
+<<<<<<< HEAD
 <!DOCTYPE HTML>
 
+=======
+>>>>>>> james/master
 var style = {
     fillColor: '#000',
     fillOpacity: 0.1,
