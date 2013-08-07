@@ -1,15 +1,4 @@
-<<<<<<< HEAD
-<<<<<<< HEAD:src/Loaction.js
 <!DOCTYPE HTML>
-
-=======
->>>>>>> james/master
-=======
-=======
-<!DOCTYPE HTML>
-
->>>>>>> joshua/master
->>>>>>> james/master:src/Loaction.html
 var style = {
     fillColor: '#000',
     fillOpacity: 0.1,
