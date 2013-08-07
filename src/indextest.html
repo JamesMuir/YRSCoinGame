@@ -1,4 +1,3 @@
-
 <html>
 	<head>
 		<title>Coin Chaser</title>
@@ -43,16 +42,16 @@
          );
         var markers = new OpenLayers.Layer.Markers( "Markers" );
         map.addLayer(markers);
-                             
-            
-      
-      }
+                                 
+	  }
     </script>
 
 	</head>
 	<body>
 		<div id="header"></div>
 		<h2>Coin Chaser</h2>
+		
+		
 		<div id="mapdiv"></div>
 		<script src="http://www.openlayers.org/api/OpenLayers.js"></script>
 		<script>
@@ -83,6 +82,7 @@
 		markers.addMarker(new OpenLayers.Marker(lonLat));
  
 		map.setCenter (lonLat, zoom);
+		}
 		</script>
 	</body>
 	<body onload="init();">
