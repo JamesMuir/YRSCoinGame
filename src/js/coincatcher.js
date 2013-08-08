@@ -1,28 +1,3 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title>Coin Catcher</title>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <meta charset="utf-8">
-    <style type="text/css">
-      html,body {
-        width: 100%;
-        margin: 0;
-      }
-      #map-canvas {
-        width: 100%;
-        height: 300px;
-      }
-    </style>
-    <!--
-    Include the maps javascript with sensor=true because this code is using a
-    sensor (a GPS locator) to determine the user's location.
-    See: https://developers.google.com/apis/maps/documentation/javascript/basics#SpecifyingSensor
-    -->
-
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
-    <script>
-
 // the location of our coins. These are near Eastbourne Co-Hub for testing with.
 var coins = [
   {
@@ -127,6 +102,10 @@ function initialize() {
       // get the current location
       navigator.geolocation.getCurrentPosition(function(position) {
 
+        // make sure the game is visible, and remove any error or loading screens.
+        document.getElementById('loading').style.display = 'none';
+        document.getElementById('game').style.visibility = 'visible';
+
         // show the current lat, long and score
         document.getElementById('lat').innerHTML = "" + position.coords.latitude;
         document.getElementById('lng').innerHTML = "" + position.coords.longitude;
@@ -170,6 +149,8 @@ function initialize() {
 
 // we use this if we get an error.
 function handleNoGeolocation(errorFlag) {
+  document.getElementById('loading').style.display = 'none';
+  document.getElementById('game').style.visibility = 'visible';
   if (errorFlag) {
     var content = 'Error: The Geolocation service failed.';
   } else {
@@ -214,16 +195,3 @@ Array.prototype.remove = function(from, to) {
 
 // add the map to the page when loaded.
 google.maps.event.addDomListener(window, 'load', initialize);
-
-    </script>
-  </head>
-  <body>
-    <div id="map-canvas"></div>
-    <div>
-      <p>Coins: <span id="coins">0</span></p>
-      <p>Lat: <span id="lat"></span></p>
-      <p>Long: <span id="lng"></span></p>
-      <p>Count: <span id="count"></span></p>
-    </div>
-  </body>
-</html>
