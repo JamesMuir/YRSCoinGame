@@ -148,7 +148,7 @@ function initialize() {
         var pos = new google.maps.LatLng(position.coords.latitude,
                                          position.coords.longitude);
         marker.setPosition(pos);
-        map.setCenter(pos);
+        map.panTo(pos);
 
       }, function() {
         // an error occured.
