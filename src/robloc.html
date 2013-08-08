@@ -54,10 +54,10 @@ function initialize() {
       }, function() {
         handleNoGeolocation(true);
       },{
-        maximumAge: 250,
+        maximumAge: 500,
         enableHighAccuracy: true
       });
-    }, 2000);
+    }, 500);
   } else {
     // Browser doesn't support Geolocation
     handleNoGeolocation(false);
@@ -83,8 +83,8 @@ function handleNoGeolocation(errorFlag) {
 
 function addCoins(map) {
   var image = 'img/Coin.png';
-  var coinlat = 50.77909;
-  var coinlong = 0.291183;
+  var coinlat = 50.7698; // 50.77909;
+  var coinlong = 0.2815; // 0.291183;
   for(var i=0; i<10; i++) {
     var marker = new google.maps.Marker({
       position: new google.maps.LatLng( coinlat, coinlong ),
