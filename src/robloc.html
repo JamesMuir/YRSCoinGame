@@ -19,7 +19,7 @@
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
     <script>
 
-// the location of our coins.
+// the location of our coins. These are near Eastbourne Co-Hub for testing with.
 var coins = [
   {
     'lat' : 50.77097,
@@ -111,7 +111,7 @@ function initialize() {
     var marker = new google.maps.Marker({
       position: new google.maps.LatLng( 0, 0 ),
       map: map,
-      image: pacmanimage
+      icon: pacmanimage
     });
 
     // update the game every 0.5 seconds
