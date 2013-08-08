@@ -107,10 +107,11 @@ function initialize() {
   if(navigator.geolocation) {
 
     // create a marker for us.
+    var pacmanimage = 'img/pacman.png';
     var marker = new google.maps.Marker({
       position: new google.maps.LatLng( 0, 0 ),
       map: map,
-      title: 'You are here'
+      image: pacmanimage
     });
 
     // update the game every 0.5 seconds
