@@ -22,63 +22,65 @@
 var coins = [
   {
     'lat' : 50.77097,
-    'long' : 0.28219
+    'lng' : 0.28219
   },
   {
     'lat' : 50.77145,
-    'long' : 0.28133
+    'lng' : 0.28133
   },
   {
     'lat' : 50.77178,
-    'long' : 0.28067
+    'lng' : 0.28067
   },
   {
     'lat' : 50.77228,
-    'long' : 0.28131
+    'lng' : 0.28131
   },
   {
     'lat' : 50.77275,
-    'long' : 0.2819
+    'lng' : 0.2819
   },
   {
     'lat' : 50.77348,
-    'long' : 0.2811
+    'lng' : 0.2811
   },
   {
     'lat' : 50.77357,
-    'long' : 0.28034
+    'lng' : 0.28034
   },
   {
     'lat' : 50.77311,
-    'long' : 0.27971
+    'lng' : 0.27971
   },
   {
     'lat' : 50.77263,
-    'long' : 0.27842
+    'lng' : 0.27842
   },
   {
     'lat' : 50.77211,
-    'long' : 0.27842
+    'lng' : 0.27842
   },
   {
     'lat' : 50.77164,
-    'long' : 0.27782
+    'lng' : 0.27782
   },
   {
     'lat' : 50.77126,
-    'long' : 0.27854
+    'lng' : 0.27854
   },
   {
     'lat' : 50.77081,
-    'long' : 0.27942
+    'lng' : 0.27942
   },
   {
     'lat' : 50.77059,
-    'long' : 0.28049
+    'lng' : 0.28049
   }
 ];
 
 var map;
+var score = 0;
+var nearenough = 0.0004;
 
 function initialize() {
   var counter = 0;
@@ -103,7 +105,18 @@ function initialize() {
       navigator.geolocation.getCurrentPosition(function(position) {
 
         document.getElementById('lat').innerHTML = "" + position.coords.latitude;
-        document.getElementById('long').innerHTML = "" + position.coords.longitude;
+        document.getElementById('lng').innerHTML = "" + position.coords.longitude;
+        document.getElementById('coins').innerHTML = "" + score;
+
+
+        for (var i=0; i<coins.length; ++i) {
+          var distancetocoin = distance(coins[i], {lat: position.coords.latitude, lng: position.coords.longitude});
+          if (distancetocoin < nearenough) {
+            coins[i].marker.setMap(null);
+            coins.remove(i);
+            score++;
+          }
+        }
 
         var pos = new google.maps.LatLng(position.coords.latitude,
                                          position.coords.longitude);
@@ -146,27 +159,36 @@ function addCoins(map) {
   for(var i=0; i<coins.length; ++i) {
     var coin = coins[i];
     var marker = new google.maps.Marker({
-      position: new google.maps.LatLng( coin.lat, coin.long ),
+      position: new google.maps.LatLng( coin.lat, coin.lng ),
       map: map,
       icon: image
     });
+    coins[i].marker = marker;
   }
 }
 
 function distance(a,b) {
-  return Math.sqrt(((b.lat - a.lat) * (b.lat - a.lat)) + ((b.long - a.long) * (b.long - a.long)));
+  return Math.sqrt(((b.lat - a.lat) * (b.lat - a.lat)) + ((b.lng - a.lng) * (b.lng - a.lng)));
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
 
+
+
+// Array Remove - By John Resig (MIT Licensed)
+Array.prototype.remove = function(from, to) {
+  var rest = this.slice((to || from) + 1 || this.length);
+  this.length = from < 0 ? this.length + from : from;
+  return this.push.apply(this, rest);
+};
     </script>
   </head>
   <body>
     <div id="map-canvas"></div>
     <div>
-      <p>Lat: <span id="lat"></span></p>
-      <p>Long: <span id="long"></span></p>
       <p>Coins: <span id="coins">0</span></p>
+      <p>Lat: <span id="lat"></span></p>
+      <p>Long: <span id="lng"></span></p>
       <p>Count: <span id="count"></span></p>
     </div>
   </body>
