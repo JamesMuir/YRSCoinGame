@@ -1,44 +1,30 @@
-
+<!DOCTYPE html>
 <html>
-	<head>
-		<title>Coin Chaser</title>
-		<link rel="shortcut icon" href="images/Coin.ico"/>
-		<link rel="stylesheet" type="text/css" href="index.css">
-	</head>
-	<body>
-		<div id="header"></div>
-		<h2>Coin Chaser</h2>
-		<div id="mapdiv"></div>
-		<script src="http://www.openlayers.org/api/OpenLayers.js"></script>
-		<script>
-		map = new OpenLayers.Map("mapdiv");
-		map.addLayer(new OpenLayers.Layer.OSM());
- 
-		var lonLat = new OpenLayers.LonLat( 0.28311 , 50.76257 )
-			.transform(
-            new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
-            map.getProjectionObject() // to Spherical Mercator Projection
-			);
- 
-		var zoom=14;
-		var markers = new OpenLayers.Layer.Markers( "Markers" );
-		map.addLayer(markers);
- 
-		markers.addMarker(new OpenLayers.Marker(lonLat));
-	
-	    var lonLat = new OpenLayers.LonLat( 0.29088 , 50.76813 )
-          .transform(
-            new OpenLayers.Projection("EPSG:4326"), // transform from WGS 1984
-            map.getProjectionObject() // to Spherical Mercator Projection
-          );
- 
-		var zoom=14;
-		var markers = new OpenLayers.Layer.Markers( "Markers" );
-		map.addLayer(markers);
-
-		markers.addMarker(new OpenLayers.Marker(lonLat));
- 
-		map.setCenter (lonLat, zoom);
-		</script>
-	</body>
+  <head>
+    <title>Coin Catcher</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <!--
+    Include the maps javascript with sensor=true because this code is using a
+    sensor (a GPS locator) to determine the user's location.
+    See: https://developers.google.com/apis/maps/documentation/javascript/basics#SpecifyingSensor
+    -->
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
+    <script src="js/coincatcher.js"></script>
+  </head>
+  <body>
+    <div id="loading">
+      Coin Catcher is Loading...
+    </div>
+    <div id="game">
+      <div id="map-canvas"></div>
+      <div>
+        <p>Coins: <span id="coins">0</span></p>
+        <p>Lat: <span id="lat"></span></p>
+		<p>Long: <span id="lng"></span></p>
+        <p>Count: <span id="count"></span></p>
+      </div>
+    </div>
+  </body>
 </html>
